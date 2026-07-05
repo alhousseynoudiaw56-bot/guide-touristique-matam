@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'services/auth_service.dart';
 import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,53 +45,12 @@ class AuthGate extends StatelessWidget {
           );
         }
         if (snapshot.hasData) {
-          // Utilisateur connecté
-          return const MyHomePage(title: 'Guide Touristique - Matam');
+          // Utilisateur connecté -> écran principal avec la liste des sites
+          return const HomeScreen();
         }
         // Personne connecté -> écran de connexion
         return const LoginScreen();
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Déconnexion',
-            onPressed: () => AuthService().signOut(),
-          ),
-        ],
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.check_circle, color: Colors.green, size: 64),
-            SizedBox(height: 16),
-            Text(
-              'Connecté avec succès !',
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
