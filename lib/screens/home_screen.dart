@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/site.dart';
 import '../services/firestore_service.dart';
 import '../services/auth_service.dart';
+import 'site_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -45,6 +46,14 @@ class HomeScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(12),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SiteDetailScreen(site: site),
+                      ),
+                    );
+                  },
                   leading: CircleAvatar(
                     backgroundColor: Colors.deepOrange.shade100,
                     child: const Icon(Icons.place, color: Colors.deepOrange),
